@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+//import { Container, Col, Row } from "react-bootstrap";
+
+import GoobWord from "./GoobWord";
+import GoobWordChanger from "./GoobWordChanger";
+import Meaning from "./Meaning";
+
+import { getRandomGoobWord } from "./getRandomGoobWord";
+import { generateAllGoobWords } from "./generateAllGoobWords";
 
 function App() {
+  const [currGoobWord, setGoobWord] = useState({ word: "Goob", meaning: "" });
+  const allGoobWords = generateAllGoobWords();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <header className="App-header">
+      <GoobWord goobword={currGoobWord.word} />
+      <Meaning meaning={currGoobWord.meaning} />
+      <GoobWordChanger
+        func={() => setGoobWord(getRandomGoobWord(allGoobWords))}
+      />
+    </header>
   );
 }
 
